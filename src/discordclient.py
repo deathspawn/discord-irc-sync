@@ -14,6 +14,7 @@ class DiscordClient(discord.Client):
         self.h_channel_id = configuration['discord']['channel']
         self.h_owner = configuration['discord']["owner"]
         self.h_status = configuration['discord']['status']
+        self.h_alerts = configuration['discord']['alerts']
         self.h_cmd_prefix = configuration['discord']["cmd_prefix"]
         self.h_output_msg = configuration['discord']["output_msg"]
         self.h_output_cmd = configuration['discord']["output_cmd"]
@@ -199,9 +200,12 @@ class DiscordClient(discord.Client):
         return member.name
 
     def hl_nicks(self, message):
-        for client in self.get_all_members():
-            nick = ''.join("[" + c.replace("\\","\\\\") + "]" for c in self.get_nick(client))
-            message = re.sub(r'\b(' + nick + r')\b', client.mention, message, flags=re.IGNORECASE)
+        if self.h_alerts == True:
+            for client in self.get_all_members():
+                nick = ''.join("[" + c.replace("\\","\\\\") + "]" for c in self.get_nick(client))
+                message = re.sub(r'\b(' + nick + r')\b', client.mention, message, flags=re.IGNORECASE)
+        else:
+            message = message
         return message
 
     def de_hl_nick(self, nick):
