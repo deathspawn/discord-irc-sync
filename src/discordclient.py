@@ -13,6 +13,7 @@ class DiscordClient(discord.Client):
         self.h_server_id = configuration['discord']['server']
         self.h_channel_id = configuration['discord']['channel']
         self.h_owner = configuration['discord']["owner"]
+        self.h_status = configuration['discord']['status']
         self.h_cmd_prefix = configuration['discord']["cmd_prefix"]
         self.h_output_msg = configuration['discord']["output_msg"]
         self.h_output_cmd = configuration['discord']["output_cmd"]
@@ -184,12 +185,13 @@ class DiscordClient(discord.Client):
         """
         Status change
         """
-        if member_before.status == discord.Status.offline and member_after.status != discord.Status.offline:
-            message = self.h_format_text("*%s* has joined" % (username,))
-            self.h_raw_send_to_irc(message)
-        if member_before.status != discord.Status.offline and member_after.status == discord.Status.offline:
-            message = self.h_format_text("*%s* has quit" % (username,))
-            self.h_raw_send_to_irc(message)
+        if self.h_status == True:
+            if member_before.status == discord.Status.offline and member_after.status != discord.Status.offline:
+                message = self.h_format_text("*%s* has joined" % (username,))
+                self.h_raw_send_to_irc(message)
+            if member_before.status != discord.Status.offline and member_after.status == discord.Status.offline:
+                message = self.h_format_text("*%s* has quit" % (username,))
+                self.h_raw_send_to_irc(message)
 
     def get_nick(self, member):
         if member.nick is not None:
