@@ -18,6 +18,7 @@
         "token": "<bot token>",
         "owner": "username",
         "status": false,
+        "alerts": false,
         "cmd_prefix": "!",
         "output_msg": "<:username:> :message:",
         "output_cmd": "CMD by :username:",
