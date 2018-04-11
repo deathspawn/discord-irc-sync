@@ -97,7 +97,7 @@ class I2DFormatter:
         
         if not self.doformat:
             message = re.sub(r'['+ IRC_BOLD + IRC_UNDERLINE + IRC_ITALIC + IRC_RESET +']', '', message)
-        return re.sub(r'\x03\d{2}(?:,\d{2})', '', message)
+        return re.sub(r'\x03(?:\d{1,2}(?:,\d{1,2})?)?', '', message)
 
     def format(self, message):
         message = self.sanitize(message)
