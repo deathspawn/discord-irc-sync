@@ -117,8 +117,8 @@ class DiscordClient(discord.Client):
         """
         for c in content.split('\n'):
             message = "<%s> : %s" % (username, c)
-            if attachments:
-                for i in attachmebts:
+            if message.attachments:
+                for i in message.attachmebts:
                     print(i)
             print("[Discord] %s" % message)
             self.h_send_to_irc(username, self.h_format_text(c.strip()))
