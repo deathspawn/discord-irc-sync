@@ -123,8 +123,12 @@ class DiscordClient(discord.Client):
                 for i in attachments:
                     print("[Discord] <%s> : %s" % (username, i['url']))
                     self.h_send_to_irc(username, i['url'])
-            print("[Discord] %s" % message)
-            self.h_send_to_irc(username, self.h_format_text(c.strip()))
+                if c != "":
+                    print("[Discord] %s" % message)
+                    self.h_send_to_irc(username, self.h_format_text(c.strip()))
+            else:
+                print("[Discord] %s" % message)
+                self.h_send_to_irc(username, self.h_format_text(c.strip()))
 
     async def on_member_join(self, member):
         """
